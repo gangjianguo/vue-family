@@ -1,0 +1,41 @@
+$namespace: "el" !default;
+$block-sel: "-" !default;
+$elem-sel: "__" !default;
+$mod-sel: "--" !default;
+
+@mixin bfc {
+  height: 100%;
+  overflow: hidden;
+}
+
+// block
+@mixin b($block) {
+  $B: #{$namespace + $block-sel + $block};
+  .#{$B} {
+    @content;
+  }
+}
+
+// element
+@mixin e($el) {
+  // 获取父类名
+  $selector: &;
+  // @at-root 跳出嵌套
+  @at-root {
+    #{$selector + $elem-sel + $el} {
+      @content;
+    }
+  }
+}
+
+// modify
+@mixin m($m) {
+  // 获取父类名
+  $selector: &;
+  // @at-root 跳出嵌套
+  @at-root {
+    #{$selector + $mod-sel + $m} {
+      @content;
+    }
+  }
+}
